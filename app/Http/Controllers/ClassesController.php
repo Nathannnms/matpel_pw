@@ -12,7 +12,8 @@ class ClassesController extends Controller
      */
     public function index()
     {
-        //
+        $classes = Classes::all();
+        return view('classes', compact('classes'));
     }
 
     /**

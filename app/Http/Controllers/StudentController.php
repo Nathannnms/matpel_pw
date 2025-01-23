@@ -12,7 +12,8 @@ class StudentController extends Controller
      */
     public function index()
     {
-        //
+        $students = Student::all();
+        return view('student', compact('students'));
     }
 
     /**
@@ -20,7 +21,7 @@ class StudentController extends Controller
      */
     public function create()
     {
-        //
+        return view('tools.create');
     }
 
     /**
@@ -28,7 +29,15 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request -> validate([
+            'std_name' => 'required',
+            'std_age' => 'required',
+            'std_nis' => 'required',
+            'std_gender' => 'required',
+        ]);
+
+        Student::create($request->all());
+        return redirect()->route('student')->with('success', 'Siswa berhasil ditambahkan.');
     }
 
     /**
@@ -44,7 +53,7 @@ class StudentController extends Controller
      */
     public function edit(Student $student)
     {
-        //
+        return view('tools.edit', compact('student'));
     }
 
     /**
@@ -52,7 +61,15 @@ class StudentController extends Controller
      */
     public function update(Request $request, Student $student)
     {
-        //
+        $request -> validate([
+            'std_name' => 'required',
+            'std_age' => 'required',
+            'std_nis' => 'required',
+            'std_gender' => 'required',
+        ]);
+
+        Student::update($request->all());
+        return redirect()->route('student')->with('success', 'Siswa berhasil diperbarui.');
     }
 
     /**
@@ -60,6 +77,7 @@ class StudentController extends Controller
      */
     public function destroy(Student $student)
     {
-        //
+        $student->delete();
+        return  redirect()->route('student')->with('success', compact('student'));
     }
 }
