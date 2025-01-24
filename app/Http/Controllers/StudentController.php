@@ -31,6 +31,7 @@ class StudentController extends Controller
     {
         $request -> validate([
             'std_name' => 'required',
+            'std_classes_id' => 'required|integer',
             'std_age' => 'required',
             'std_nis' => 'required',
             'std_gender' => 'required',
@@ -53,6 +54,7 @@ class StudentController extends Controller
      */
     public function edit(Student $student)
     {
+        $students = Student::find($id);
         return view('tools.edit', compact('student'));
     }
 
@@ -61,15 +63,7 @@ class StudentController extends Controller
      */
     public function update(Request $request, Student $student)
     {
-        $request -> validate([
-            'std_name' => 'required',
-            'std_age' => 'required',
-            'std_nis' => 'required',
-            'std_gender' => 'required',
-        ]);
-
-        Student::update($request->all());
-        return redirect()->route('student')->with('success', 'Siswa berhasil diperbarui.');
+        $students->update($request->only(['std_id','std_name','std_classes_id','']));
     }
 
     /**
@@ -79,5 +73,5 @@ class StudentController extends Controller
     {
         $student->delete();
         return  redirect()->route('student')->with('success', compact('student'));
-    }
+    }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   vcv
 }
