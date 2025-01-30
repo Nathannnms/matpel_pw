@@ -33,7 +33,7 @@
                     <td>{{ $student->std_gender }}</td>
                     <td>
                         <a href="{{ route('tools.edit', $student->std_id) }}" class="btn btn-warning">Edit</a>
-                        <form action="{{ route('tools.delete', $student->std_id) }}" method="POST" style="display:inline;">
+                        <form action="{{ route('tools.destroy', $student->std_id) }}" method="POST" style="display:inline;">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger">Delete</button>
