@@ -5,8 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+
 class Student extends Model
 {
+    protected $primaryKey = 'std_id';
+
     use HasFactory;
 
     protected $table = 'students';
@@ -17,4 +20,9 @@ class Student extends Model
         'std_nis',
         'std_gender',
     ];
+
+    public function class()
+    {
+        return $this->belongsTo(Classes::class, 'std_classes_id', 'cls_id' );
+    }
 }

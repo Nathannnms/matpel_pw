@@ -8,34 +8,68 @@
 </head>
 <body>
     <div class="container mt-5">
-        <h1 class="text-center">Edit Siswa</h1>
+        <h1>Edit Siswa</h1>
 
-        <form action="{{ route('tools.update', $student->std_id) }}" method="POST">
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
+        <form action="{{ route('student.update', $student->std_id) }}" method="POST">
             @csrf
+            @method('PUT')
             <div class="form-group">
-                <label for="std_name">Nama</label>
-                <input type="text" class="form-control" id="std_name" name="std_name" value="{{ $student->std_name }}" required>
+                <label>Nama</label>
+                <input type="text" class="form-control @error('std_name') is-invalid @enderror" 
+                       name="std_name" value="{{ old('std_name', $student->std_name) }}" required>
+                @error('std_name')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
             </div>
             <div class="form-group">
-                <label for="std_classes_id">ID Kelas</label>
-                 <input type="number" class="form-control" id="std_classes_id" name="std_classes_id" value="{{ $student->std_classes_id }}" required>
+                <label>Kelas</label>
+                <select class="form-control" name="std_classes_id" required>
+                    <option value="">Pilih Kelas</option>
+                    @foreach($classes as $class)
+                        <option value="{{ $class->cls_id }}" {{ $student->std_classes_id == $class->cls_id ? 'selected' : '' }}>
+                            {{ $class->cls_name }}
+                        </option>
+                    @endforeach
+                </select>
+                @error('cls_id')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
+
             </div>
             <div class="form-group">
-                <label for="std_age">Usia</label>
-                <input type="number" class="form-control" id="std_age" name="std_age" value="{{ $student->std_age }}" required>
+                <label>Umur</label>
+                <input type="number" class="form-control @error('std_age') is-invalid @enderror" 
+                       name="std_age" value="{{ old('std_age', $student->std_age) }}" required>
+                @error('std_age')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
             </div>
             <div class="form-group">
-                <label for="std_nis">NIS</label>
-                <input type="number" class="form-control" id="std_nis" name="std_nis" value="{{ $student->std_nis }}" required>
+                <label>NIS</label>
+                <input type="number" class="form-control @error('std_nis') is-invalid @enderror" 
+                       name="std_nis" value="{{ old('std_nis', $student->std_nis) }}" required>
+                @error('std_nis')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
             </div>
             <div class="form-group">
-                <label for="std_gender">Jenis Kelamin</label>
-                <select class="form-control" id="std_gender" name="std_gender" required>
+                <label>Gender</label>
+                <select class="form-control" name="std_gender" required>
                     <option value="Laki-laki" {{ $student->std_gender == 'Laki-laki' ? 'selected' : '' }}>Laki-laki</option>
                     <option value="Perempuan" {{ $student->std_gender == 'Perempuan' ? 'selected' : '' }}>Perempuan</option>
                 </select>
             </div>
-            <button type="submit"class="btn btn-primary">Update</button>
+            <button type="submit" class="btn btn-primary">Update</button>
             <a href="{{ route('student') }}" class="btn btn-secondary">Kembali</a>
         </form>
     </div>

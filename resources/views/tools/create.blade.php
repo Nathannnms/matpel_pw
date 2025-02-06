@@ -18,7 +18,13 @@
             </div>
             <div class="form-group">
                 <label for="std_classes_id">ID Kelas</label>
-                <input type="number" class="form-control" id="std_classes_id" name="std_classes_id" required>
+                <select class="form-control" name="std_classes_id" required>
+                    <option value="">Pilih Kelas</option>
+                    @foreach($classes as $class)
+                        <option value="{{ $class->cls_id }}">{{ $class->cls_name }}</option>
+                    @endforeach
+                </select>
+
             </div>
             <div class="form-group">
                 <label for="std_age">Usia</label>

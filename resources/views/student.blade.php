@@ -27,7 +27,7 @@
                 <tr>
                     <td>{{ $student->std_id }}</td>
                     <td>{{ $student->std_name }}</td>
-                    <td>{{ $student->std_classes_id }}</td>
+                    <td>{{ $student->class ? $student->class->cls_name : 'kelas tidak ditemukan' }}</td>
                     <td>{{ $student->std_age }}</td>
                     <td>{{ $student->std_nis }}</td>
                     <td>{{ $student->std_gender }}</td>
